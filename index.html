@@ -5,131 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ErrandEase - Simplifying Errands for UWI Students</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div id="app">
         <header>
             <nav>
-                <div class="logo">ErrandEase</div>
+                <div class="logo"><i class="fas fa-shipping-fast"></i> ErrandEase</div>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <button id="login-btn">Login</button>
+                <button id="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
             </nav>
         </header>
 
         <main>
+            <!-- Hero Section -->
             <section id="home">
                 <h1>ErrandEase</h1>
                 <p>Simplifying Errands for UWI Students</p>
-                <button id="get-started-btn">Get Started</button>
+                <button id="get-started-btn"><i class="fas fa-play"></i> Get Started</button>
             </section>
 
+            <!-- Services Section -->
             <section id="services">
                 <h2>Our Services</h2>
                 <div class="service-grid">
                     <div class="service-card">
-                        <i class="fas fa-shopping-basket"></i>
+                        <i class="fas fa-shopping-cart"></i>
                         <h3>Groceries</h3>
-                        <p>Fresh produce and pantry essentials delivered to your door.</p>
+                        <p>Order fresh groceries and have them delivered directly to your door.</p>
                     </div>
                     <div class="service-card">
                         <i class="fas fa-pills"></i>
                         <h3>Pharmacy</h3>
-                        <p>Over-the-counter medications and health products.</p>
+                        <p>Get over-the-counter medications and health products quickly.</p>
                     </div>
                     <div class="service-card">
                         <i class="fas fa-book"></i>
                         <h3>Stationery</h3>
-                        <p>All your academic supplies and study materials.</p>
+                        <p>All your academic supplies and study materials in one place.</p>
                     </div>
                     <div class="service-card">
                         <i class="fas fa-home"></i>
                         <h3>Essentials</h3>
-                        <p>Household items and personal care products.</p>
+                        <p>Household items and personal care products delivered to you.</p>
                     </div>
                 </div>
             </section>
 
+            <!-- How It Works Section -->
             <section id="how-it-works">
                 <h2>How It Works</h2>
                 <div class="steps">
                     <div class="step">
                         <i class="fas fa-mobile-alt"></i>
                         <h3>1. Place Your Order</h3>
-                        <p>Browse items and add them to your cart.</p>
+                        <p>Browse our services and add items to your cart with ease.</p>
                     </div>
                     <div class="step">
                         <i class="fas fa-store"></i>
-                        <h3>2. We Shop For You</h3>
-                        <p>Our team carefully selects your items from local stores.</p>
+                        <h3>2. We Shop for You</h3>
+                        <p>We handpick your items from local stores, ensuring quality.</p>
                     </div>
                     <div class="step">
                         <i class="fas fa-truck"></i>
                         <h3>3. Fast Delivery</h3>
-                        <p>We deliver your order right to your doorstep.</p>
+                        <p>Your items are delivered to your doorstep in no time.</p>
                     </div>
                 </div>
             </section>
 
-            <section id="order-process">
-                <h2>Place Your Order</h2>
-                <div id="categories">
-                    <h3>Select a Category</h3>
-                    <div class="category-grid">
-                        <button class="category-btn" data-category="groceries">Groceries</button>
-                        <button class="category-btn" data-category="essentials">Essentials</button>
-                        <button class="category-btn" data-category="pharmacy">Pharmacy</button>
-                        <button class="category-btn" data-category="stationery">Stationery</button>
-                    </div>
-                </div>
-                <div id="items" style="display: none;">
-                    <h3>Select Items</h3>
-                    <div id="item-list"></div>
-                    <button id="place-order">Place Order</button>
-                </div>
-                <div id="order-confirmation" style="display: none;">
-                    <h3>Order Confirmed!</h3>
-                    <p>Your order has been placed successfully.</p>
-                    <p>Estimated delivery time: <span id="delivery-time"></span></p>
-                    <button id="track-order">Track Order</button>
-                </div>
-            </section>
-
+            <!-- Testimonials Section -->
             <section id="testimonials">
                 <h2>What Our Users Say</h2>
                 <div class="testimonial-grid">
                     <div class="testimonial">
-                        <p>"ErrandEase has been a lifesaver during exam season. I can focus on studying while they take care of my grocery needs!"</p>
+                        <i class="fas fa-user-circle"></i>
+                        <p>"ErrandEase made my life so much easier during exam season!"</p>
                         <p class="author">- Sarah, 2nd Year Student</p>
                     </div>
                     <div class="testimonial">
-                        <p>"The convenience of having essentials delivered right to my dorm is unmatched. Highly recommend!"</p>
+                        <i class="fas fa-user-circle"></i>
+                        <p>"The convenience of having groceries delivered is unmatched!"</p>
                         <p class="author">- Michael, 3rd Year Student</p>
                     </div>
                 </div>
             </section>
 
+            <!-- Contact Section -->
             <section id="contact">
                 <h2>Contact Us</h2>
                 <form id="contact-form">
                     <input type="text" placeholder="Your Name" required>
                     <input type="email" placeholder="Your Email" required>
                     <textarea placeholder="Your Message" required></textarea>
-                    <button type="submit">Send Message</button>
+                    <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
                 </form>
             </section>
         </main>
 
+        <!-- Footer -->
         <footer>
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>ErrandEase</h3>
-                    <p>Simplifying errands for UWI students since 2023.</p>
+                    <p>Reliable, fast, and convenient. Delivering essentials to UWI students since 2023.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
@@ -154,6 +140,5 @@
             </div>
         </footer>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
