@@ -688,10 +688,10 @@ button:hover {
                 <div class="logo"><i class="fas fa-shipping-fast"></i> ErrandEase</div>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="how-it-works.html">How It Works</a></li>
-                    <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.html">Services</a></li>
+                    <li><a href="index.html">How It Works</a></li>
+                    <li><a href="index.html">Testimonials</a></li>
+                    <li><a href="index.html">Contact</a></li>
                     <li><a href="order.html">Order</a></li>
                 </ul>
             </nav>
@@ -992,7 +992,7 @@ button:hover {
                       <div class="subscription-header">
                           <label for="subscription">
                               <input type="checkbox" id="subscription" name="subscription">
-                              <span>Subscribe to Errand<i>Easier</i> &nbsp;for TTD 25 per month</span>
+                              <span>Subscribe to Errand<i>Easier</i> &nbsp;for ONLY TTD $40 per month</span>
                           </label>
                       </div>
                       <div class="subscription-details">
@@ -1064,21 +1064,21 @@ button:hover {
             'beverages': document.getElementById('beverages-items'),
             'toiletries': document.getElementById('toiletries-items')
         };
+        const deliveryFee = 20; // Set delivery fee for non-subscribers (TTD20)
+
+        Object.values(categories).forEach(category => category.style.display = 'none');
+
+// Show relevant category based on grocery type selection
+groceryTypeSelect.addEventListener('change', function() {
+    // Hide all categories
+    Object.values(categories).forEach(category => category.style.display = 'none');
     
-        // Show grocery items when a store is selected
-        groceryStore.addEventListener('change', function() {
-            groceryItemsContainer.style.display = this.value ? 'block' : 'none';
-        });
-    
-        // Show relevant category based on grocery type selection
-        groceryTypeSelect.addEventListener('change', function() {
-            Object.values(categories).forEach(category => category.style.display = 'none'); // Hide all categories
-            const selectedType = groceryTypeSelect.value;
-            if (categories[selectedType]) {
-                categories[selectedType].style.display = 'block'; // Show only the selected category
-            }
-        });
-    
+    // Show only the selected category, if any
+    const selectedType = groceryTypeSelect.value;
+    if (categories[selectedType]) {
+        categories[selectedType].style.display = 'block';
+    }
+});
         // Show restaurant items based on restaurant selection
         const restaurant = document.getElementById('restaurant');
         const restaurantItemsContainer = document.getElementById('restaurant-items-container');
@@ -1144,22 +1144,43 @@ button:hover {
                 }
             });
     
-            // Add subscription cost if subscribed
-            const isSubscribed = document.getElementById('subscription').checked;
-            if (isSubscribed) {
-                const subscriptionCost = 25; // TTD 25 per month
-                total += subscriptionCost;
-                const subscriptionDiv = document.createElement('div');
-                subscriptionDiv.innerHTML = `<span>ErrandEasier Subscription</span><span>TTD ${subscriptionCost.toFixed(2)}</span>`;
-                summaryItems.appendChild(subscriptionDiv);
+        // Calculate total for items selected
+        document.querySelectorAll('.item input[type="number"]').forEach(function(input) {
+            const quantity = parseInt(input.value);
+            if (quantity > 0) {
+                const name = input.dataset.name;
+                const price = parseFloat(input.dataset.price);
+                const itemTotal = quantity * price;
+                total += itemTotal;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.innerHTML = `<span>${name} x ${quantity}</span><span>TTD ${itemTotal.toFixed(2)}</span>`;
+                summaryItems.appendChild(itemDiv);
             }
-    
-            totalAmount.textContent = `Total: TTD ${total.toFixed(2)}`;
-            deliveryTimeSummary.textContent = `Delivery Time: ${document.getElementById('delivery-time').value}`;
-            paymentMethodSummary.textContent = `Payment Method: ${document.querySelector('input[name="payment"]:checked').value === 'cash' ? 'Cash upon arrival' : 'Debit/Credit Card'}`;
-            subscriptionSummary.textContent = isSubscribed ? 'ErrandEasier Subscription: Active' : 'ErrandEasier Subscription: Not Active';
+        });
+
+        // Add subscription cost if subscribed
+        const isSubscribed = document.getElementById('subscription').checked;
+        if (isSubscribed) {
+            const subscriptionCost = 40; // TTD 40 per month
+            total += subscriptionCost;
+            const subscriptionDiv = document.createElement('div');
+            subscriptionDiv.innerHTML = `<span>ErrandEasier Subscription</span><span>TTD ${subscriptionCost.toFixed(2)}</span>`;
+            summaryItems.appendChild(subscriptionDiv);
+        } else {
+            // Add delivery fee for non-subscribers
+            total += deliveryFee;
+            const deliveryFeeDiv = document.createElement('div');
+            deliveryFeeDiv.innerHTML = `<span>Delivery Fee</span><span>TTD ${deliveryFee.toFixed(2)}</span>`;
+            summaryItems.appendChild(deliveryFeeDiv);
         }
-    
+
+        totalAmount.textContent = `Total: TTD ${total.toFixed(2)}`;
+        deliveryTimeSummary.textContent = `Delivery Time: ${document.getElementById('delivery-time').value}`;
+        paymentMethodSummary.textContent = `Payment Method: ${document.querySelector('input[name="payment"]:checked').value === 'cash' ? 'Cash upon arrival' : 'Debit/Credit Card'}`;
+        subscriptionSummary.textContent = isSubscribed ? 'ErrandEasier Subscription: Active' : 'ErrandEasier Subscription: Not Active';
+    }
+
         // Show Confirmation
         function showConfirmation() {
             orderSummary.style.display = 'none';
