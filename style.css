@@ -48,10 +48,6 @@ nav ul {
     gap: 20px;
 }
 
-nav ul li {
-    display: inline;
-}
-
 nav ul li a {
     color: white;
     text-decoration: none;
@@ -126,9 +122,9 @@ nav ul li a:hover {
 
 /* Services Section */
 #services {
-    padding: 40px 20px;
+    padding: 50px 20px;
+    background-color: #f4f6f9;
     text-align: center;
-    background-color: white;
     margin-top: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -148,27 +144,28 @@ nav ul li a:hover {
 
 .service-card {
     background-color: white;
-    padding: 20px;
+    border: 1px solid #ddd;
+    padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     text-align: center;
-    transition: box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .service-card i {
-    font-size: 36px;
+    font-size: 40px;
     color: #ff9900;
     margin-bottom: 15px;
 }
 
 .service-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
 }
 
 /* How It Works Section */
 #how-it-works {
-    background-color: white;
-    padding: 40px 20px;
+    background-color: #eef2f6;
+    padding: 50px 20px;
     text-align: center;
     margin-top: 20px;
     border-radius: 10px;
@@ -189,16 +186,22 @@ nav ul li a:hover {
 
 .step {
     background-color: white;
-    padding: 20px;
+    padding: 25px;
+    border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     text-align: center;
+    transition: transform 0.3s ease;
 }
 
 .step i {
-    font-size: 36px;
+    font-size: 40px;
     color: #ff9900;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.step:hover {
+    transform: translateY(-5px);
 }
 
 /* Testimonials Section */
@@ -334,7 +337,7 @@ footer {
     color: #ff9900;
 }
 
-/* --- Mobile Optimization --- */
+/* Mobile Optimization */
 @media (max-width: 768px) {
     header nav {
         flex-direction: column;

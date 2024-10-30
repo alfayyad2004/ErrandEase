@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErrandEase - Place Your Order</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+    <style>:root {
+      --primary-color: #232f3e;
+      --secondary-color: #ff9900;
+      --background-color: #f9f9f9;
+      --text-color: #333;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      margin: 0;
+    }
+    
+    #app {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style-type: none;
+    }
+    
+    nav ul li {
+      margin-left: 1rem;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px;
+      transition: background-color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      background-color: #37475a;
+      border-radius: 5px;
+    }
+    
+    main {
+      margin-top: 2rem;
+    }
+    
+    h2 {
+      color: var(--primary-color);
+    }
+    
+    #order, #order-summary {
+      background-color: white;
+      padding: 40px 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    #order h2, #order-summary h2 {
+      font-size: 30px;
+      color: var(--text-color);
+      margin-bottom: 20px;
+    }
+    
+    #order-form {
+      display: grid;
+      gap: 20px;
+    }
+    
+    #order-form label {
+      font-weight: bold;
+    }
+    
+    #order-form select,
+    #order-form input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .items-container {
+      margin-top: 20px;
+    }
+    
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .item input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    button {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #f0ad4e;
+    }
+    
+    .payment-options {
+      display: grid;
+      gap: 10px;
+    }
+    
+    .payment-option {
+      display: flex;
+      align-items: center;
+    }
+    
+    .payment-option input[type="radio"] {
+      margin-right: 10px;
+    }
+    
+    .secure-icon {
+      color: green;
+      margin-left: 5px;
+    }
+    
+    #confirmation-message {
+      background-color: #dff0d8;
+      border: 1px solid #d6e9c6;
+      color: #3c763d;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    #payment-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .popup-content {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    .popup-content h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .popup-content form {
+      display: grid;
+      gap: 15px;
+    }
+    
+    .popup-content input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .close-popup {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+    
+    #order-summary {
+      display: none;
+    }
+    
+    #summary-items {
+      margin-bottom: 20px;
+    }
+    
+    #summary-items div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    #total-amount {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    
+    #delivery-time-summary,
+    #payment-method-summary {
+      margin-bottom: 10px;
+    }
+    
+    #confirm-order-btn,
+    #edit-order-btn {
+      margin-right: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      #order, #order-summary {
+        padding: 20px;
+      }
+    
+      #order h2, #order-summary h2 {
+        font-size: 24px;
+      }
+    
+      .popup-content {
+        padding: 20px;
+      }
+    }
+    </style>
+
+</style>
+<body>
+  <div id="app">
+      <header>
+          <nav>
+              <div class="logo"><i class="fas fa-shipping-fast"></i> ErrandEase</div>
+              <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="services.html">Services</a></li>
+                  <li><a href="how-it-works.html">How It Works</a></li>
+                  <li><a href="testimonials.html">Testimonials</a></li>
+                  <li><a href="contact.html">Contact</a></li>
+                  <li><a href="order.html">Order</a></li>
+              </ul>
+          </nav>
+      </header>
+
+      <main>
+          <section id="login-section">
+              <h2>Welcome, John Bovell!</h2>
+              <p>You're logged in as John Bovell. Let's place an order.</p>
+          </section>
+
+          <section id="order">
+              <h2>Place Your Order</h2>
+              <form id="order-form">
+                  <div class="store-selection">
+                      <label for="grocery-store">Choose Grocery Store:</label>
+                      <select id="grocery-store" name="grocery-store" required>
+                          <option value="">Select a store</option>
+                          <option value="freshmart">FreshMart</option>
+                          <option value="quickstop">QuickStop</option>
+                          <option value="megamarket">MegaMarket</option>
+                      </select>
+                  </div>
+
+                  <div id="grocery-items-container" class="items-container">
+                      <h3>Choose Grocery Items:</h3>
+                      <div class="item">
+                          <span>Milk ($2.99)</span>
+                          <input type="number" min="0" value="0" data-price="2.99" data-name="Milk">
+                      </div>
+                      <div class="item">
+                          <span>Bread ($1.99)</span>
+                          <input type="number" min="0" value="0" data-price="1.99" data-name="Bread">
+                      </div>
+                      <div class="item">
+                          <span>Eggs ($3.49)</span>
+                          <input type="number" min="0" value="0" data-price="3.49" data-name="Eggs">
+                      </div>
+                      <div class="item">
+                          <span>Fresh Fruits ($4.99)</span>
+                          <input type="number" min="0" value="0" data-price="4.99" data-name="Fresh Fruits">
+                      </div>
+                      <div class="item">
+                          <span>Vegetables ($3.99)</span>
+                          <input type="number" min="0" value="0" data-price="3.99" data-name="Vegetables">
+                      </div>
+                      <div class="item">
+                          <span>Snacks ($2.49)</span>
+                          <input type="number" min="0" value="0" data-price="2.49" data-name="Snacks">
+                      </div>
+                  </div>
+
+                  <div class="store-selection">
+                      <label for="restaurant">Choose Restaurant:</label>
+                      <select id="restaurant" name="restaurant" required>
+                          <option value="">Select a restaurant</option>
+                          <option value="pizzapalace">Pizza Palace</option>
+                          <option value="burgerbarn">Burger Barn</option>
+                          <option value="sushispot">Sushi Spot</option>
+                      </select>
+                  </div>
+
+                  <div id="restaurant-items-container" class="items-container">
+                      <h3>Choose Restaurant Meals:</h3>
+                      <div class="item">
+                          <span>Pizza ($12.99)</span>
+                          <input type="number" min="0" value="0" data-price="12.99" data-name="Pizza">
+                      </div>
+                      <div class="item">
+                          <span>Burger ($8.99)</span>
+                          <input type="number" min="0" value="0" data-price="8.99" data-name="Burger">
+                      </div>
+                      <div class="item">
+                          <span>Pasta ($10.99)</span>
+                          <input type="number" min="0" value="0" data-price="10.99" data-name="Pasta">
+                      </div>
+                      <div class="item">
+                          <span>Salad ($7.99)</span>
+                          <input type="number" min="0" value="0" data-price="7.99" data-name="Salad">
+                      </div>
+                      <div class="item">
+                          <span>Chicken & Rice ($11.99)</span>
+                          <input type="number" min="0" value="0" data-price="11.99" data-name="Chicken & Rice">
+                      </div>
+                      <div class="item">
+                          <span>Sushi ($14.99)</span>
+                          <input type="number" min="0" value="0" data-price="14.99" data-name="Sushi">
+                      </div>
+                  </div>
+
+                  <label for="delivery-time">Preferred Delivery Time:</label>
+                  <input type="time" id="delivery-time" name="delivery-time" required>
+
+                  <div class="payment-options">
+                      <h3>Payment Method:</h3>
+                      <div class="payment-option">
+                          <input type="radio" id="cash" name="payment" value="cash" required>
+                          <label for="cash">Cash upon arrival</label>
+                      </div>
+                      <div class="payment-option">
+                          <input type="radio" id="card" name="payment" value="card" required>
+                          <label for="card">Debit/Credit Card <i class="fas fa-lock secure-icon"></i></label>
+                      </div>
+                  </div>
+
+                  <button type="submit" id="review-order-btn"><i class="fas fa-shopping-cart"></i> Review Order</button>
+              </form>
+          </section>
+
+          <section id="order-summary" style="display: none;">
+              <h2>Order Summary</h2>
+              <div id="summary-items"></div>
+              <div id="total-amount"></div>
+              <div id="delivery-time-summary"></div>
+              <div id="payment-method-summary"></div>
+              <button id="confirm-order-btn">Confirm Order</button>
+              <button id="edit-order-btn">Edit Order</button>
+          </section>
+      </main>
+
+      <div id="confirmation-message" style="display:none;">
+          <h2>Thank You, John Bovell!</h2>
+          <p>Your order has been placed. We'll deliver it at your preferred time.</p>
+      </div>
+
+      <div id="payment-popup" style="display:none;">
+          <div class="popup-content">
+              <span class="close-popup">&times;</span>
+              <h2>Secure Payment <i class="fas fa-lock secure-icon"></i></h2>
+              <form id="payment-form">
+                  <label for="card-number">Card Number:</label>
+                  <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
+
+                  <label for="expiry-date">Expiry Date:</label>
+                  <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required>
+
+                  <label for="cvv">CVV:</label>
+                  <input type="text" id="cvv" name="cvv" placeholder="123" required>
+
+                  <button type="submit">Pay Now</button>
+              </form>
+          </div>
+      </div>
+  </div>
+
+    <script>
+ document.addEventListener('DOMContentLoaded', function() {
+  const orderForm = document.getElementById('order-form');
+  const orderSummary = document.getElementById('order-summary');
+  const reviewOrderBtn = document.getElementById('review-order-btn');
+  const confirmOrderBtn = document.getElementById('confirm-order-btn');
+  const editOrderBtn = document.getElementById('edit-order-btn');
+  const paymentPopup = document.getElementById('payment-popup');
+  const closePopup = document.querySelector('.close-popup');
+  const paymentForm = document.getElementById('payment-form');
+
+  reviewOrderBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    updateOrderSummary();
+    orderForm.style.display = 'none';
+    orderSummary.style.display = 'block';
+  });
+
+  editOrderBtn.addEventListener('click', function() {
+    orderSummary.style.display = 'none';
+    orderForm.style.display = 'block';
+  });
+
+  confirmOrderBtn.addEventListener('click', function() {
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    if (paymentMethod === 'card') {
+      paymentPopup.style.display = 'flex';
+    } else {
+      showConfirmation();
+    }
+  });
+
+  closePopup.addEventListener('click', function() {
+    paymentPopup.style.display = 'none';
+  });
+
+  paymentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    paymentPopup.style.display = 'none';
+    showConfirmation();
+  });
+
+  function updateOrderSummary() {
+    const summaryItems = document.getElementById('summary-items');
+    const totalAmount = document.getElementById('total-amount');
+    const deliveryTimeSummary = document.getElementById('delivery-time-summary');
+    const paymentMethodSummary = document.getElementById('payment-method-summary');
+
+    summaryItems.innerHTML = '';
+    let total = 0;
+
+    document.querySelectorAll('.item input[type="number"]').forEach(function(input) {
+      const quantity = parseInt(input.value);
+      if (quantity > 0) {
+        const name = input.dataset.name;
+        const price = parseFloat(input.dataset.price);
+        const itemTotal = quantity * price;
+        total += itemTotal;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.innerHTML = `<span>${name} x ${quantity}</span><span>$${itemTotal.toFixed(2)}</span>`;
+        summaryItems.appendChild(itemDiv);
+      }
+    });
+
+    totalAmount.textContent = `Total: $${total.toFixed(2)}`;
+    deliveryTimeSummary.textContent = `Delivery Time: ${document.getElementById('delivery-time').value}`;
+    paymentMethodSummary.textContent = `Payment Method: ${document.querySelector('input[name="payment"]:checked').value === 'cash' ? 'Cash upon arrival' : 'Debit/Credit Card'}`;
+  }
+
+  function showConfirmation() {
+    orderSummary.style.display = 'none';
+    document.getElementById('confirmation-message').style.display = 'block';
+  }
+});
+    </script>
+</body>
+</html>
