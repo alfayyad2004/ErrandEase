@@ -6,6 +6,9 @@
     <title>ErrandEase - Place Your Order</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Add these in the head section -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <style>
   :root {
@@ -377,6 +380,215 @@ button:hover {
         padding-left: 15px;
     }
 }
+/* Add these new styles for better item selection */
+.grocery-category {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.grocery-category h4 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.item:hover {
+    background-color: #f8f9fa;
+}
+
+.item span {
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+.item input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.item input[type="number"]:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.1);
+}
+
+#suggestion-box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+}
+
+#suggestion-box:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.1);
+}
+
+.store-selection select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
+    padding-right: 40px;
+}
+
+.store-selection select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.1);
+}
+
+/* Animation for category display */
+.grocery-category {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsiveness improvements */
+@media (max-width: 768px) {
+    .grocery-category {
+        padding: 15px;
+    }
+
+    .item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .item input[type="number"] {
+        width: 100%;
+    }
+}
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 8px;
+  text-align: center;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.plus-btn, .minus-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.plus-btn:hover, .minus-btn:hover {
+  background-color: #f0ad4e;
+}
+/* Add these styles to your existing CSS */
+.delivery-location {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.location-options {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.location-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.location-btn:hover {
+    background-color: #37475a;
+}
+
+.or-divider {
+    color: #666;
+    font-weight: 500;
+}
+
+.address-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.address-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.1);
+}
+
+.map-preview {
+    height: 200px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: none;
+}
+
+.map-preview.active {
+    display: block;
+}
+
 </style>
 <body>
     <div id="app">
@@ -412,34 +624,181 @@ button:hover {
                             <option value="megamarket">MegaMarket</option>
                         </select>
                     </div>
+<!-- Grocery Type Selector -->
+<div class="store-selection">
+  <label for="grocery-type">Choose Grocery Type:</label>
+  <select id="grocery-type" name="grocery-type" required>
+      <option value="">Select a type</option>
+      <option value="staples">Staples</option>
+      <option value="quick-meals">Quick Meals</option>
+      <option value="beverages">Beverages</option>
+      <option value="toiletries">Toiletries</option>
+  </select>
+</div>
 
-                    <div id="grocery-items-container" class="items-container" style="display: none;">
-                        <h3>Choose Grocery Items:</h3>
-                        <div class="item">
-                            <span>Milk (TTD 20.93)</span>
-                            <input type="number" min="0" value="0" data-price="20.93" data-name="Milk">
-                        </div>
-                        <div class="item">
-                            <span>Bread (TTD 13.93)</span>
-                            <input type="number" min="0" value="0" data-price="13.93" data-name="Bread">
-                        </div>
-                        <div class="item">
-                            <span>Eggs (TTD 24.43)</span>
-                            <input type="number" min="0" value="0" data-price="24.43" data-name="Eggs">
-                        </div>
-                        <div class="item">
-                            <span>Fresh Fruits (TTD 34.93)</span>
-                            <input type="number" min="0" value="0" data-price="34.93" data-name="Fresh Fruits">
-                        </div>
-                        <div class="item">
-                            <span>Vegetables (TTD 27.93)</span>
-                            <input type="number" min="0" value="0" data-price="27.93" data-name="Vegetables">
-                        </div>
-                        <div class="item">
-                            <span>Snacks (TTD 17.43)</span>
-                            <input type="number" min="0" value="0" data-price="17.43" data-name="Snacks">
-                        </div>
-                    </div>
+<!-- Grocery Items Section with Categories -->
+<!-- Grocery Items Section with Categories -->
+<div id="grocery-items-container" class="items-container">
+    <!-- Staples -->
+    <div id="staples-items" class="grocery-category">
+  <h4>Staples</h4>
+  <div class="item">
+      <span>National Flour (TTD 12.50)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="12.50" data-name="National Flour" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Mahatma Rice (TTD 20.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="20.00" data-name="Mahatma Rice" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Kiss Bread (TTD 14.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="14.00" data-name="Kiss Bread" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Matouk's Red Beans (TTD 8.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="8.00" data-name="Matouk's Red Beans" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Chief Curry Powder (TTD 10.50)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="10.50" data-name="Chief Curry Powder" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+</div>
+
+<!-- Quick Meals -->
+<div id="quick-meals-items" class="grocery-category" style="display: none;">
+  <h4>Quick Meals</h4>
+  <div class="item">
+      <span>Swiss Macaroni & Cheese (TTD 10.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="10.00" data-name="Swiss Macaroni & Cheese" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Maggi Instant Noodles (TTD 4.50)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="4.50" data-name="Maggi Instant Noodles" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Frozen Roti Skins (TTD 8.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="8.00" data-name="Frozen Roti Skins" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Blue Band Margarine (TTD 9.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="9.00" data-name="Blue Band Margarine" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Matouk's Ketchup (TTD 8.50)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="8.50" data-name="Matouk's Ketchup" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+</div>
+
+<!-- Beverages -->
+<div id="beverages-items" class="grocery-category" style="display: none;">
+  <h4>Beverages</h4>
+  <div class="item">
+      <span>Dairy Dairy Milk (TTD 6.50)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="6.50" data-name="Dairy Dairy Milk" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Solo Apple Drink (TTD 5.50)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="5.50" data-name="Solo Apple Drink" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>TrinJam Coconut Water (TTD 9.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="9.00" data-name="TrinJam Coconut Water" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+</div>
+
+<!-- Toiletries -->
+<div id="toiletries-items" class="grocery-category" style="display: none;">
+  <h4>Toiletries</h4>
+  <div class="item">
+      <span>Colgate Toothpaste (TTD 15.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="15.00" data-name="Colgate Toothpaste" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Scented Roll-On Deodorant (TTD 12.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="12.00" data-name="Scented Roll-On Deodorant" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+      <span>Charmain Toilet Paper (TTD 18.00)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="18.00" data-name="Charmain Toilet Paper" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  <div class="item">
+    <span>Blue Magic Coconut Oil Hair Conditioner (TTD 20.00)</span>
+    <div class="quantity-control">
+        <button type="button" class="minus-btn">-</button>
+        <input type="number" min="0" value="0" data-price="20.00" data-name="Blue Magic Coconut Oil Hair Conditioner" class="quantity-input">
+        <button type="button" class="plus-btn">+</button>
+    </div>
+</div>
+</div>
+
+<!-- Suggestion Box -->
+<label for="suggestion-box">Suggest an Item:</label>
+<textarea id="suggestion-box" name="suggestion-box" placeholder="Let us know what items you'd like to see added..." rows="4" style="width: 100%; border-radius: 5px; padding: 10px; border: 1px solid #ddd;"></textarea>
+
 
                     <div class="store-selection">
                         <label for="restaurant">Choose Restaurant:</label>
@@ -451,33 +810,77 @@ button:hover {
                         </select>
                     </div>
 
-                    <div id="restaurant-items-container" class="items-container" style="display: none;">
-                        <h3>Choose Restaurant Meals:</h3>
-                        <div class="item">
-                            <span>Pizza (TTD 90.93)</span>
-                            <input type="number" min="0" value="0" data-price="90.93" data-name="Pizza">
-                        </div>
-                        <div class="item">
-                            <span>Burger (TTD 62.93)</span>
-                            <input type="number" min="0" value="0" data-price="62.93" data-name="Burger">
-                        </div>
-                        <div class="item">
-                            <span>Pasta (TTD 76.93)</span>
-                            <input type="number" min="0" value="0" data-price="76.93" data-name="Pasta">
-                        </div>
-                        <div class="item">
-                            <span>Salad (TTD 55.93)</span>
-                            <input type="number" min="0" value="0" data-price="55.93" data-name="Salad">
-                        </div>
-                        <div class="item">
-                            <span>Chicken & Rice (TTD 83.93)</span>
-                            <input type="number" min="0" value="0" data-price="83.93" data-name="Chicken & Rice">
-                        </div>
-                        <div class="item">
-                            <span>Sushi (TTD 104.93)</span>
-                            <input type="number" min="0" value="0" data-price="104.93" data-name="Sushi">
-                        </div>
-                    </div>
+<!-- Restaurant Items Section -->
+<div id="restaurant-items-container" class="items-container" style="display: none;">
+  <h3>Choose Restaurant Meals:</h3>
+  
+  <div class="item">
+      <span>Pizza (TTD 90.93)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="90.93" data-name="Pizza" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  
+  <div class="item">
+      <span>Burger (TTD 62.93)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="62.93" data-name="Burger" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  
+  <div class="item">
+      <span>Pasta (TTD 76.93)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="76.93" data-name="Pasta" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  
+  <div class="item">
+      <span>Salad (TTD 55.93)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="55.93" data-name="Salad" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  
+  <div class="item">
+      <span>Chicken & Rice (TTD 83.93)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="83.93" data-name="Chicken & Rice" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+  
+  <div class="item">
+      <span>Sushi (TTD 104.93)</span>
+      <div class="quantity-control">
+          <button type="button" class="minus-btn">-</button>
+          <input type="number" min="0" value="0" data-price="104.93" data-name="Sushi" class="quantity-input">
+          <button type="button" class="plus-btn">+</button>
+      </div>
+  </div>
+</div>
+
+<!-- Add this right after the delivery time input -->
+<div class="delivery-location">
+    <h3>Delivery Location</h3>
+    <div class="location-options">
+        <button type="button" id="get-location-btn" class="location-btn">
+            <i class="fas fa-location-arrow"></i> Use Current Location
+        </button>
+        <div class="or-divider">OR</div>
+        <input type="text" id="address-input" placeholder="Enter delivery address" class="address-input">
+    </div>
+    <div id="map-preview" class="map-preview"></div>
+</div>
 
                     <label for="delivery-time">Preferred Delivery Time:</label>
                     <input type="time" id="delivery-time" name="delivery-time" required>
@@ -552,112 +955,199 @@ button:hover {
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const orderForm = document.getElementById('order-form');
-            const orderSummary = document.getElementById('order-summary');
-            const reviewOrderBtn = document.getElementById('review-order-btn');
-            const confirmOrderBtn = document.getElementById('confirm-order-btn');
-            const editOrderBtn = document.getElementById('edit-order-btn');
-            const paymentPopup = document.getElementById('payment-popup');
-            const closePopup = document.querySelector('.close-popup');
-            const paymentForm = document.getElementById('payment-form');
-            const groceryStore = document.getElementById('grocery-store');
-            const restaurant = document.getElementById('restaurant');
-            const groceryItemsContainer = document.getElementById('grocery-items-container');
-            const restaurantItemsContainer = document.getElementById('restaurant-items-container');
-
-            groceryStore.addEventListener('change', function() {
-                groceryItemsContainer.style.display = this.value ? 'block' : 'none';
-            });
-
-            restaurant.addEventListener('change', function() {
-                restaurantItemsContainer.style.display = this.value ? 'block' : 'none';
-            });
-
-            reviewOrderBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                updateOrderSummary();
-                orderForm.style.display = 'none';
-                orderSummary.style.display = 'block';
-            });
-
-            editOrderBtn.addEventListener('click', function() {
-                orderSummary.style.display = 'none';
-                orderForm.style.display = 'block';
-            });
-
-            confirmOrderBtn.addEventListener('click', function() {
-                const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-                if (paymentMethod === 'card') {
-                    paymentPopup.style.display = 'flex';
-                } else {
-                    showConfirmation();
-                }
-            });
-
-            closePopup.addEventListener('click', function() {
-                paymentPopup.style.display = 'none';
-            });
-
-            paymentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                paymentPopup.style.display = 'none';
-                showConfirmation();
-            });
-
-            function updateOrderSummary() {
-                const summaryItems = document.getElementById('summary-items');
-                const totalAmount = document.getElementById('total-amount');
-                const deliveryTimeSummary = document.getElementById('delivery-time-summary');
-                const paymentMethodSummary = document.getElementById('payment-method-summary');
-                const subscriptionSummary = document.getElementById('subscription-summary');
-
-                summaryItems.innerHTML = '';
-                let total = 0;
-
-                document.querySelectorAll('.item input[type="number"]').forEach(function(input) {
-                    const quantity = parseInt(input.value);
-                    if (quantity > 0) {
-                        const name = input.dataset.name;
-                        const price = parseFloat(input.dataset.price);
-                        const itemTotal = quantity * price;
-                        total += itemTotal;
-
-                        const itemDiv = document.createElement('div');
-                        itemDiv.innerHTML = `<span>${name} x ${quantity}</span><span>TTD ${itemTotal.toFixed(2)}</span>`;
-                        summaryItems.appendChild(itemDiv);
-                    }
-                });
-
-                totalAmount.textContent = `Total: TTD ${total.toFixed(2)}`;
-                deliveryTimeSummary.textContent = `Delivery Time: ${document.getElementById('delivery-time').value}`;
-                paymentMethodSummary.textContent = `Payment Method: ${document.querySelector('input[name="payment"]:checked').value === 'cash' ? 'Cash upon arrival' : 'Debit/Credit Card'}`;
-                
-                const isSubscribed = document.getElementById('subscription').checked;
-                subscriptionSummary.textContent = isSubscribed ? 'ErrandEasier Subscription: Active' : 'ErrandEasier Subscription: Not Active';
-            }
-
-            function showConfirmation() {
-                orderSummary.style.display = 'none';
-                document.getElementById('confirmation-message').style.display = 'block';
+    <script>document.addEventListener('DOMContentLoaded', function() {
+        const orderForm = document.getElementById('order-form');
+        const orderSummary = document.getElementById('order-summary');
+        const reviewOrderBtn = document.getElementById('review-order-btn');
+        const confirmOrderBtn = document.getElementById('confirm-order-btn');
+        const editOrderBtn = document.getElementById('edit-order-btn');
+        const paymentPopup = document.getElementById('payment-popup');
+        const closePopup = document.querySelector('.close-popup');
+        const paymentForm = document.getElementById('payment-form');
+        const groceryStore = document.getElementById('grocery-store');
+        const groceryTypeSelect = document.getElementById('grocery-type');
+        const groceryItemsContainer = document.getElementById('grocery-items-container');
+        const categories = {
+            'staples': document.getElementById('staples-items'),
+            'quick-meals': document.getElementById('quick-meals-items'),
+            'beverages': document.getElementById('beverages-items'),
+            'toiletries': document.getElementById('toiletries-items')
+        };
+    
+        // Show grocery items when a store is selected
+        groceryStore.addEventListener('change', function() {
+            groceryItemsContainer.style.display = this.value ? 'block' : 'none';
+        });
+    
+        // Show relevant category based on grocery type selection
+        groceryTypeSelect.addEventListener('change', function() {
+            Object.values(categories).forEach(category => category.style.display = 'none'); // Hide all categories
+            const selectedType = groceryTypeSelect.value;
+            if (categories[selectedType]) {
+                categories[selectedType].style.display = 'block'; // Show only the selected category
             }
         });
-        function updateOrderSummary() {
-    // Existing code...
-
-    const isSubscribed = document.getElementById('subscription').checked;
-    if (isSubscribed) {
-        const subscriptionCost = 25; // TTD 25 per month
-        total += subscriptionCost;
-        const subscriptionDiv = document.createElement('div');
-        subscriptionDiv.innerHTML = `<span>ErrandEasier Subscription</span><span>TTD ${subscriptionCost.toFixed(2)}</span>`;
-        summaryItems.appendChild(subscriptionDiv);
-    }
     
-    totalAmount.textContent = `Total: TTD ${total.toFixed(2)}`;
-    // ... rest of the existing code
-}
+        // Show restaurant items based on restaurant selection
+        const restaurant = document.getElementById('restaurant');
+        const restaurantItemsContainer = document.getElementById('restaurant-items-container');
+        restaurant.addEventListener('change', function() {
+            restaurantItemsContainer.style.display = this.value ? 'block' : 'none';
+        });
+    
+        // Review Order
+        reviewOrderBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            updateOrderSummary();
+            orderForm.style.display = 'none';
+            orderSummary.style.display = 'block';
+        });
+    
+        editOrderBtn.addEventListener('click', function() {
+            orderSummary.style.display = 'none';
+            orderForm.style.display = 'block';
+        });
+    
+        // Confirm Order
+        confirmOrderBtn.addEventListener('click', function() {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            if (paymentMethod === 'card') {
+                paymentPopup.style.display = 'flex';
+            } else {
+                showConfirmation();
+            }
+        });
+    
+        closePopup.addEventListener('click', function() {
+            paymentPopup.style.display = 'none';
+        });
+    
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            paymentPopup.style.display = 'none';
+            showConfirmation();
+        });
+    
+        // Update Order Summary
+        function updateOrderSummary() {
+            const summaryItems = document.getElementById('summary-items');
+            const totalAmount = document.getElementById('total-amount');
+            const deliveryTimeSummary = document.getElementById('delivery-time-summary');
+            const paymentMethodSummary = document.getElementById('payment-method-summary');
+            const subscriptionSummary = document.getElementById('subscription-summary');
+    
+            summaryItems.innerHTML = '';
+            let total = 0;
+    
+            document.querySelectorAll('.item input[type="number"]').forEach(function(input) {
+                const quantity = parseInt(input.value);
+                if (quantity > 0) {
+                    const name = input.dataset.name;
+                    const price = parseFloat(input.dataset.price);
+                    const itemTotal = quantity * price;
+                    total += itemTotal;
+    
+                    const itemDiv = document.createElement('div');
+                    itemDiv.innerHTML = `<span>${name} x ${quantity}</span><span>TTD ${itemTotal.toFixed(2)}</span>`;
+                    summaryItems.appendChild(itemDiv);
+                }
+            });
+    
+            // Add subscription cost if subscribed
+            const isSubscribed = document.getElementById('subscription').checked;
+            if (isSubscribed) {
+                const subscriptionCost = 25; // TTD 25 per month
+                total += subscriptionCost;
+                const subscriptionDiv = document.createElement('div');
+                subscriptionDiv.innerHTML = `<span>ErrandEasier Subscription</span><span>TTD ${subscriptionCost.toFixed(2)}</span>`;
+                summaryItems.appendChild(subscriptionDiv);
+            }
+    
+            totalAmount.textContent = `Total: TTD ${total.toFixed(2)}`;
+            deliveryTimeSummary.textContent = `Delivery Time: ${document.getElementById('delivery-time').value}`;
+            paymentMethodSummary.textContent = `Payment Method: ${document.querySelector('input[name="payment"]:checked').value === 'cash' ? 'Cash upon arrival' : 'Debit/Credit Card'}`;
+            subscriptionSummary.textContent = isSubscribed ? 'ErrandEasier Subscription: Active' : 'ErrandEasier Subscription: Not Active';
+        }
+    
+        // Show Confirmation
+        function showConfirmation() {
+            orderSummary.style.display = 'none';
+            document.getElementById('confirmation-message').style.display = 'block';
+        }
+    
+        // Plus and minus button functionality for quantity control
+        document.querySelectorAll('.plus-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                input.value = parseInt(input.value) + 1;
+            });
+        });
+    
+        document.querySelectorAll('.minus-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.nextElementSibling;
+                if (parseInt(input.value) > 0) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            });
+        });
+    
+        // Location functionality
+        const getLocationBtn = document.getElementById('get-location-btn');
+        const addressInput = document.getElementById('address-input');
+        const mapPreview = document.getElementById('map-preview');
+    
+        getLocationBtn.addEventListener('click', function() {
+            if (navigator.geolocation) {
+                getLocationBtn.disabled = true;
+                getLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting location...';
+    
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+    
+                        // Initialize and display map
+                        initMap(latitude, longitude);
+                        
+                        // Reverse geocoding to get address
+                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                addressInput.value = data.display_name;
+                            })
+                            .catch(error => console.error('Error:', error));
+    
+                        getLocationBtn.disabled = false;
+                        getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Use Current Location';
+                    },
+                    function(error) {
+                        alert('Unable to retrieve your location. Please enter your address manually.');
+                        getLocationBtn.disabled = false;
+                        getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Use Current Location';
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser. Please enter your address manually.');
+            }
+        });
+    
+        function initMap(latitude, longitude) {
+            // Show map container
+            mapPreview.classList.add('active');
+    
+            // Initialize OpenStreetMap (free alternative to Google Maps)
+            const map = L.map('map-preview').setView([latitude, longitude], 15);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+    
+            // Add marker
+            L.marker([latitude, longitude]).addTo(map);
+        }
+    });
+    
     </script>
 </body>
 </html>
