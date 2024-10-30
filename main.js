@@ -46,3 +46,4 @@ placeOrderBtn.addEventListener('click', () => {
 trackOrderBtn.addEventListener('click', () => {
     alert('Order tracking feature coming soon!');
 });
+

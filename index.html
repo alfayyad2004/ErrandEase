@@ -7,12 +7,64 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add this to your existing CSS or in a style tag */
+        body.popup-active {
+            overflow: hidden;
+        }
+        
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-content h2 {
+            color: #232f3e;
+            margin-bottom: 1rem;
+        }
+
+        .popup-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-secondary {
+            background-color: #232f3e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #37475a;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <header>
             <nav>
-                <div class="logo"><i class="fas fa-shipping-fast"></i> ErrandEase</div>
+                <div class="logo"><i class="fas fa-shipping-fast" aria-hidden="true"></i> ErrandEase</div>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
@@ -21,92 +73,99 @@
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="order.html">Order</a></li>
                 </ul>
-                <button id="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button id="login-btn"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</button>
             </nav>
         </header>
 
         <main>
-            <!-- Hero Section -->
             <section id="home">
                 <h1>ErrandEase</h1>
                 <p>Simplifying Errands for UWI Students</p>
-                <button id="get-started-btn"><i class="fas fa-play"></i> Get Started</button>
+                <a href="order.html" id="get-started-link">
+                    <button id="get-started-btn"><i class="fas fa-play" aria-hidden="true"></i> Get Started</button>
+                </a>
             </section>
 
-            <!-- Services Section -->
             <section id="services">
                 <h2>Our Services</h2>
                 <div class="service-grid">
                     <div class="service-card">
-                        <i class="fas fa-carrot"></i>
+                        <i class="fas fa-carrot" aria-hidden="true"></i>
                         <h3>Groceries</h3>
                         <p>Delivering fresh essentials from local groceries, specially selected based on student needs.</p>
                     </div>
                     <div class="service-card">
-                        <i class="fas fa-hamburger"></i>
+                        <i class="fas fa-hamburger" aria-hidden="true"></i>
                         <h3>Restaurant Meals</h3>
                         <p>Order from your favorite local restaurants and get delicious meals delivered to your door.</p>
                     </div>
                     <div class="service-card">
-                        <i class="fas fa-mug-hot"></i>
+                        <i class="fas fa-mug-hot" aria-hidden="true"></i>
                         <h3>Snacks & Drinks</h3>
                         <p>Quick and affordable snack options to get you through study sessions and late nights.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- How It Works Section -->
             <section id="how-it-works">
                 <h2>How It Works</h2>
                 <div class="steps">
                     <div class="step">
-                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
                         <h3>1. Browse & Order</h3>
                         <p>Choose from our essentials list, curated for UWI students, and place an order easily.</p>
                     </div>
                     <div class="step">
-                        <i class="fas fa-store"></i>
+                        <i class="fas fa-store" aria-hidden="true"></i>
                         <h3>2. We Pick It Up</h3>
                         <p>Our team shops directly at local groceries for the best quality and value.</p>
                     </div>
                     <div class="step">
-                        <i class="fas fa-truck"></i>
+                        <i class="fas fa-truck" aria-hidden="true"></i>
                         <h3>3. Get It Fast</h3>
                         <p>Expect swift delivery of your essentials right to your dorm or apartment.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Testimonials Section -->
             <section id="testimonials">
                 <h2>What Our Users Say</h2>
                 <div class="testimonial-grid">
                     <div class="testimonial">
-                        <i class="fas fa-user-circle"></i>
+                        <i class="fas fa-user-circle" aria-hidden="true"></i>
                         <p>"ErrandEase made my life so much easier during exam season!"</p>
                         <p class="author">- Sarah, 2nd Year Student</p>
                     </div>
                     <div class="testimonial">
-                        <i class="fas fa-user-circle"></i>
+                        <i class="fas fa-user-circle" aria-hidden="true"></i>
                         <p>"The convenience of having groceries delivered is unmatched!"</p>
                         <p class="author">- Michael, 3rd Year Student</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Contact Section -->
             <section id="contact">
                 <h2>Contact Us</h2>
                 <form id="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" required></textarea>
-                    <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    <label for="name" class="sr-only">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <label for="email" class="sr-only">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <label for="message" class="sr-only">Your Message</label>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message</button>
                 </form>
             </section>
         </main>
 
-        <!-- Footer -->
+        <div id="demo-popup" class="popup" role="dialog" aria-labelledby="demo-popup-title">
+            <div class="popup-content">
+                <h2 id="demo-popup-title">Welcome to the Demo Environment</h2>
+                <p>This is a demo version of ErrandEase. To place an order as John Bovell, please click the "Get Started" button.</p>
+                <button id="close-popup" class="btn-secondary">Got it!</button>
+            </div>
+        </div>
+        
         <footer>
             <div class="footer-content">
                 <div class="footer-section">
@@ -125,9 +184,9 @@
                 <div class="footer-section">
                     <h3>Connect With Us</h3>
                     <div class="social-icons">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
@@ -136,5 +195,28 @@
             </div>
         </footer>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('demo-popup');
+            const closePopupBtn = document.getElementById('close-popup');
+            const getStartedLink = document.getElementById('get-started-link');
+            const body = document.body;
+
+            // Show the pop-up immediately
+            popup.style.display = 'flex';
+            body.classList.add('popup-active');
+
+            closePopupBtn.addEventListener('click', function() {
+                popup.style.display = 'none';
+                body.classList.remove('popup-active');
+            });
+
+            getStartedLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('You are now logged in as John Bovell in the demo environment.');
+                window.location.href = 'order.html';
+            });
+        });
+    </script>
 </body>
 </html>
