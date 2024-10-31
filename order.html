@@ -992,7 +992,7 @@ button:hover {
                       <div class="subscription-header">
                           <label for="subscription">
                               <input type="checkbox" id="subscription" name="subscription">
-                              <span>Subscribe to Errand<i>Easier</i> &nbsp;for ONLY TTD $40 per month</span>
+                              <span>Subscribe to Errand<i>Easier</i> &nbsp;for ONLY TTD $150 per month</span>
                           </label>
                       </div>
                       <div class="subscription-details">
@@ -1162,7 +1162,7 @@ groceryTypeSelect.addEventListener('change', function() {
         // Add subscription cost if subscribed
         const isSubscribed = document.getElementById('subscription').checked;
         if (isSubscribed) {
-            const subscriptionCost = 40; // TTD 40 per month
+            const subscriptionCost = 150; // TTD 150 per month
             total += subscriptionCost;
             const subscriptionDiv = document.createElement('div');
             subscriptionDiv.innerHTML = `<span>ErrandEasier Subscription</span><span>TTD ${subscriptionCost.toFixed(2)}</span>`;
