@@ -1121,65 +1121,51 @@ groceryTypeSelect.addEventListener('change', function() {
     
         // Update Order Summary
         function updateOrderSummary() {
-            const summaryItems = document.getElementById('summary-items');
-            const totalAmount = document.getElementById('total-amount');
-            const deliveryTimeSummary = document.getElementById('delivery-time-summary');
-            const paymentMethodSummary = document.getElementById('payment-method-summary');
-            const subscriptionSummary = document.getElementById('subscription-summary');
-    
-            summaryItems.innerHTML = '';
-            let total = 0;
-    
-            document.querySelectorAll('.item input[type="number"]').forEach(function(input) {
-                const quantity = parseInt(input.value);
-                if (quantity > 0) {
-                    const name = input.dataset.name;
-                    const price = parseFloat(input.dataset.price);
-                    const itemTotal = quantity * price;
-                    total += itemTotal;
-    
-                    const itemDiv = document.createElement('div');
-                    itemDiv.innerHTML = `<span>${name} x ${quantity}</span><span>TTD ${itemTotal.toFixed(2)}</span>`;
-                    summaryItems.appendChild(itemDiv);
-                }
-            });
-    
-        // Calculate total for items selected
-        document.querySelectorAll('.item input[type="number"]').forEach(function(input) {
-            const quantity = parseInt(input.value);
-            if (quantity > 0) {
-                const name = input.dataset.name;
-                const price = parseFloat(input.dataset.price);
-                const itemTotal = quantity * price;
-                total += itemTotal;
+    const summaryItems = document.getElementById('summary-items');
+    const totalAmount = document.getElementById('total-amount');
+    const deliveryTimeSummary = document.getElementById('delivery-time-summary');
+    const paymentMethodSummary = document.getElementById('payment-method-summary');
+    const subscriptionSummary = document.getElementById('subscription-summary');
 
-                const itemDiv = document.createElement('div');
-                itemDiv.innerHTML = `<span>${name} x ${quantity}</span><span>TTD ${itemTotal.toFixed(2)}</span>`;
-                summaryItems.appendChild(itemDiv);
-            }
-        });
+    summaryItems.innerHTML = '';
+    let total = 0;
 
-        // Add subscription cost if subscribed
-        const isSubscribed = document.getElementById('subscription').checked;
-        if (isSubscribed) {
-            const subscriptionCost = 150; // TTD 150 per month
-            total += subscriptionCost;
-            const subscriptionDiv = document.createElement('div');
-            subscriptionDiv.innerHTML = `<span>ErrandEasier Subscription</span><span>TTD ${subscriptionCost.toFixed(2)}</span>`;
-            summaryItems.appendChild(subscriptionDiv);
-        } else {
-            // Add delivery fee for non-subscribers
-            total += deliveryFee;
-            const deliveryFeeDiv = document.createElement('div');
-            deliveryFeeDiv.innerHTML = `<span>Delivery Fee</span><span>TTD ${deliveryFee.toFixed(2)}</span>`;
-            summaryItems.appendChild(deliveryFeeDiv);
+    // Calculate total for items selected
+    document.querySelectorAll('.item input[type="number"]').forEach(function(input) {
+        const quantity = parseInt(input.value);
+        if (quantity > 0) {
+            const name = input.dataset.name;
+            const price = parseFloat(input.dataset.price);
+            const itemTotal = quantity * price;
+            total += itemTotal;
+
+            const itemDiv = document.createElement('div');
+            itemDiv.innerHTML = `<span>${name} x ${quantity}</span><span>TTD ${itemTotal.toFixed(2)}</span>`;
+            summaryItems.appendChild(itemDiv);
         }
+    });
 
-        totalAmount.textContent = `Total: TTD ${total.toFixed(2)}`;
-        deliveryTimeSummary.textContent = `Delivery Time: ${document.getElementById('delivery-time').value}`;
-        paymentMethodSummary.textContent = `Payment Method: ${document.querySelector('input[name="payment"]:checked').value === 'cash' ? 'Cash upon arrival' : 'Debit/Credit Card'}`;
-        subscriptionSummary.textContent = isSubscribed ? 'ErrandEasier Subscription: Active' : 'ErrandEasier Subscription: Not Active';
+    // Add subscription cost if subscribed
+    const isSubscribed = document.getElementById('subscription').checked;
+    if (isSubscribed) {
+        const subscriptionCost = 150; // TTD 150 per month
+        total += subscriptionCost;
+        const subscriptionDiv = document.createElement('div');
+        subscriptionDiv.innerHTML = `<span>ErrandEasier Subscription</span><span>TTD ${subscriptionCost.toFixed(2)}</span>`;
+        summaryItems.appendChild(subscriptionDiv);
+    } else {
+        // Add delivery fee for non-subscribers
+        total += deliveryFee;
+        const deliveryFeeDiv = document.createElement('div');
+        deliveryFeeDiv.innerHTML = `<span>Delivery Fee</span><span>TTD ${deliveryFee.toFixed(2)}</span>`;
+        summaryItems.appendChild(deliveryFeeDiv);
     }
+
+    totalAmount.textContent = `Total: TTD ${total.toFixed(2)}`;
+    deliveryTimeSummary.textContent = `Delivery Time: ${document.getElementById('delivery-time').value}`;
+    paymentMethodSummary.textContent = `Payment Method: ${document.querySelector('input[name="payment"]:checked').value === 'cash' ? 'Cash upon arrival' : 'Debit/Credit Card'}`;
+    subscriptionSummary.textContent = isSubscribed ? 'ErrandEasier Subscription: Active' : 'ErrandEasier Subscription: Not Active';
+}
 
         // Show Confirmation
         function showConfirmation() {
