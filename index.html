@@ -3,421 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ErrandEase Driver - Earn Money Delivering Essentials</title>
+    <title>ErrandEase - Simplifying Errands for UWI Students</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add this to your existing CSS or in a style tag */
+        body.popup-active {
+            overflow: hidden;
+        }
+        
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-content h2 {
+            color: #232f3e;
+            margin-bottom: 1rem;
+        }
+
+        .popup-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-secondary {
+            background-color: #232f3e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #37475a;
+        }
+    </style>
 </head>
-
-<style>:root {
-    --primary-color: #232f3e;
-    --secondary-color: #37475a;
-    --accent-color: #f3a847;
-    --text-color: #333;
-    --background-color: #f5f5f5;
-    --white: #ffffff;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-header {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 1rem 0;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-nav ul {
-    display: flex;
-    list-style-type: none;
-}
-
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
-    color: var(--white);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: var(--accent-color);
-}
-
-#login-btn {
-    background-color: var(--white);
-    color: var(--primary-color);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#login-btn:hover {
-    background-color: var(--accent-color);
-}
-
-main {
-    padding: 2rem 0;
-}
-
-section {
-    margin-bottom: 4rem;
-}
-
-h1, h2, h3 {
-    margin-bottom: 1rem;
-}
-
-#home {
-    text-align: center;
-    padding: 4rem 0;
-    background-color: var(--secondary-color);
-    color: var(--white);
-}
-
-#home h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-#home p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-#get-started-btn {
-    background-color: var(--accent-color);
-    color: var(--primary-color);
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#get-started-btn:hover {
-    background-color: #e09736;
-}
-
-.steps, .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.step, .benefit-card {
-    background-color: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.step i, .benefit-card i {
-    font-size: 3rem;
-    color: var(--accent-color);
-    margin-bottom: 1rem;
-}
-
-#contact form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-#contact form label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-#contact form input,
-#contact form textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-#contact form button {
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#contact form button:hover {
-    background-color: var(--secondary-color);
-}
-
-footer {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 2rem 0;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-}
-
-.footer-section h3 {
-    margin-bottom: 1rem;
-}
-
-.footer-section ul {
-    list-style-type: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-section ul li a {
-    color: var(--white);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-    color: var(--accent-color);
-}
-
-.social-icons {
-    display: flex;
-    gap: 1rem;
-}
-
-.social-icons a {
-    color: var(--white);
-    font-size: 1.5rem;
-    transition: color 0.3s ease;
-}
-
-.social-icons a:hover {
-    color: var(--accent-color);
-}
-
-.footer-bottom {
-    text-align: center;
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background-color: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.popup-content h2 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.popup-content p {
-    margin-bottom: 1.5rem;
-}
-
-.btn-secondary {
-    background-color: var(--secondary-color);
-    color: var(--white);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.btn-secondary:hover {
-    background-color: var(--primary-color);
-}
-
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    nav ul {
-        margin-top: 1rem;
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin-left: 0;
-        margin-bottom: 0.5rem;
-    }
-
-    #login-btn {
-        margin-top: 1rem;
-    }
-
-/* ... (previous CSS remains unchanged) ... */
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background-color: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.popup-content h2 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.popup-content p {
-    margin-bottom: 1.5rem;
-}
-
-.btn-primary, .btn-secondary {
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.btn-primary {
-    background-color: var(--accent-color);
-    color: var(--primary-color);
-}
-
-.btn-primary:hover {
-    background-color: #e09736;
-}
-
-.btn-secondary {
-    background-color: var(--secondary-color);
-    color: var(--white);
-}
-
-.btn-secondary:hover {
-    background-color: var(--primary-color);
-}
-
-#login-form, #order-details {
-    text-align: left;
-}
-
-#login-form label, #login-form input {
-    display: block;
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-#login-form input {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-#order-details ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-#order-details p {
-    margin-bottom: 0.5rem;
-}
-
-#accept-order, #decline-order {
-    margin-top: 1rem;
-}
-
-@media (max-width: 768px) {
-    .popup-content {
-        width: 90%;
-        max-width: none;
-    }
-}
-
-/* ... (rest of the CSS remains unchanged) ... */
-}</style>
 <body>
-
     <div id="app">
         <header>
             <nav>
-                <div class="logo"><i class="fas fa-shipping-fast" aria-hidden="true"></i> ErrandEase Driver</div>
+                <div class="logo"><i class="fas fa-shipping-fast" aria-hidden="true"></i> ErrandEase</div>
                 <ul>
                     <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="order.html">Order</a></li>
+                    <li><a href="drivers.html">Drivers</a></li>
                 </ul>
                 <button id="login-btn"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</button>
             </nav>
@@ -425,11 +80,32 @@ footer {
 
         <main>
             <section id="home">
-                <h1>Drive with ErrandEase</h1>
-                <p>Earn money by delivering essentials to UWI students</p>
-                <a href="#" id="get-started-link">
+                <h1>ErrandEase</h1>
+                <p>Simplifying Errands for UWI Students</p>
+                <a href="order.html" id="get-started-link">
                     <button id="get-started-btn"><i class="fas fa-play" aria-hidden="true"></i> Get Started</button>
                 </a>
+            </section>
+
+            <section id="services">
+                <h2>Our Services</h2>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <i class="fas fa-carrot" aria-hidden="true"></i>
+                        <h3>Groceries</h3>
+                        <p>Delivering fresh essentials from local groceries, specially selected based on student needs.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-hamburger" aria-hidden="true"></i>
+                        <h3>Restaurant Meals</h3>
+                        <p>Order from your favorite local restaurants and get delicious meals delivered to your door.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-mug-hot" aria-hidden="true"></i>
+                        <h3>Snacks & Drinks</h3>
+                        <p>Quick and affordable snack options to get you through study sessions and late nights.</p>
+                    </div>
+                </div>
             </section>
 
             <section id="how-it-works">
@@ -437,40 +113,34 @@ footer {
                 <div class="steps">
                     <div class="step">
                         <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-                        <h3>1. Accept Orders</h3>
-                        <p>Receive and accept delivery requests through our easy-to-use app.</p>
+                        <h3>1. Browse & Order</h3>
+                        <p>Choose from our essentials list, curated for UWI students, and place an order easily.</p>
                     </div>
                     <div class="step">
                         <i class="fas fa-store" aria-hidden="true"></i>
-                        <h3>2. Pick Up Items</h3>
-                        <p>Collect orders from local stores or restaurants as specified.</p>
+                        <h3>2. We Pick It Up</h3>
+                        <p>Our team shops directly at local groceries for the best quality and value.</p>
                     </div>
                     <div class="step">
                         <i class="fas fa-truck" aria-hidden="true"></i>
-                        <h3>3. Deliver Fast</h3>
-                        <p>Quickly deliver items to students on campus or nearby locations.</p>
+                        <h3>3. Get It Fast</h3>
+                        <p>Expect swift delivery of your essentials right to your dorm or apartment.</p>
                     </div>
                 </div>
             </section>
 
-            <section id="benefits">
-                <h2>Driver Benefits</h2>
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <h3>Flexible Schedule</h3>
-                        <p>Work when you want, as much as you want. Perfect for students or part-time workers.</p>
+            <section id="testimonials">
+                <h2>What Our Users Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <i class="fas fa-user-circle" aria-hidden="true"></i>
+                        <p>"ErrandEase made my life so much easier during exam season!"</p>
+                        <p class="author">- Sarah, 2nd Year Student</p>
                     </div>
-                    <div class="benefit-card">
-                        <h3>Competitive Pay</h3>
-                        <p>Earn competitive rates per delivery, plus tips from satisfied customers.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h3>Easy-to-Use App</h3>
-                        <p>Our driver app makes it simple to manage orders and navigate deliveries.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h3>Support Team</h3>
-                        <p>Access to our dedicated support team for any questions or issues.</p>
+                    <div class="testimonial">
+                        <i class="fas fa-user-circle" aria-hidden="true"></i>
+                        <p>"The convenience of having groceries delivered is unmatched!"</p>
+                        <p class="author">- Michael, 3rd Year Student</p>
                     </div>
                 </div>
             </section>
@@ -478,12 +148,12 @@ footer {
             <section id="contact">
                 <h2>Contact Us</h2>
                 <form id="contact-form">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" required>
-                    <label for="email">Your Email</label>
-                    <input type="email" id="email" name="email" required>
-                    <label for="message">Your Message</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <label for="name" class="sr-only">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <label for="email" class="sr-only">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <label for="message" class="sr-only">Your Message</label>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
                     <button type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message</button>
                 </form>
             </section>
@@ -491,53 +161,24 @@ footer {
 
         <div id="demo-popup" class="popup" role="dialog" aria-labelledby="demo-popup-title">
             <div class="popup-content">
-                <h2 id="demo-popup-title">Welcome to the Driver Demo Environment</h2>
-                <p>This is a demo version of ErrandEase for drivers. To sign up as a driver, please click the "Get Started" button.</p>
+                <h2 id="demo-popup-title">Welcome to the Demo Environment</h2>
+                <p>This is a demo version of ErrandEase. To place an order as John Bovell, please click the "Get Started" button.</p>
                 <button id="close-popup" class="btn-secondary">Got it!</button>
-            </div>
-        </div>
-
-        <div id="login-popup" class="popup" role="dialog" aria-labelledby="login-popup-title">
-            <div class="popup-content">
-                <h2 id="login-popup-title">Driver Login</h2>
-                <form id="login-form">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                    <button type="submit" class="btn-primary">Login</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="order-popup" class="popup" role="dialog" aria-labelledby="order-popup-title">
-            <div class="popup-content">
-                <h2 id="order-popup-title">New Order</h2>
-                <div id="order-details">
-                    <p><strong>Order ID:</strong> <span id="order-id"></span></p>
-                    <p><strong>Customer:</strong> <span id="customer-name"></span></p>
-                    <p><strong>Items:</strong></p>
-                    <ul id="order-items"></ul>
-                    <p><strong>Pickup Location:</strong> <span id="pickup-location"></span></p>
-                    <p><strong>Delivery Location:</strong> <span id="delivery-location"></span></p>
-                </div>
-                <button id="accept-order" class="btn-primary">Accept Order</button>
-                <button id="decline-order" class="btn-secondary">Decline Order</button>
             </div>
         </div>
         
         <footer>
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>ErrandEase Driver</h3>
-                    <p>Join our team of reliable drivers delivering essentials to UWI students since 2023.</p>
+                    <h3>ErrandEase</h3>
+                    <p>Reliable, fast, and convenient. Delivering essentials to UWI students since 2023.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#benefits">Benefits</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -551,105 +192,32 @@ footer {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 ErrandEase Driver. All rights reserved.</p>
+                <p>&copy; 2023 ErrandEase. All rights reserved.</p>
             </div>
         </footer>
     </div>
-    <script>document.addEventListener('DOMContentLoaded', function() {
-        const demoPopup = document.getElementById('demo-popup');
-        const loginPopup = document.getElementById('login-popup');
-        const orderPopup = document.getElementById('order-popup');
-        const closePopupBtn = document.getElementById('close-popup');
-        const getStartedLink = document.getElementById('get-started-link');
-        const loginBtn = document.getElementById('login-btn');
-        const loginForm = document.getElementById('login-form');
-        const acceptOrderBtn = document.getElementById('accept-order');
-        const declineOrderBtn = document.getElementById('decline-order');
-        const body = document.body;
-    
-        // Show the demo pop-up immediately
-        demoPopup.style.display = 'flex';
-        body.classList.add('popup-active');
-    
-        closePopupBtn.addEventListener('click', function() {
-            demoPopup.style.display = 'none';
-            body.classList.remove('popup-active');
-        });
-    
-        getStartedLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('You are now signed up as a driver in the demo environment.');
-            showOrderPopup();
-        });
-    
-        loginBtn.addEventListener('click', function() {
-            loginPopup.style.display = 'flex';
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('demo-popup');
+            const closePopupBtn = document.getElementById('close-popup');
+            const getStartedLink = document.getElementById('get-started-link');
+            const body = document.body;
+
+            // Show the pop-up immediately
+            popup.style.display = 'flex';
             body.classList.add('popup-active');
-        });
-    
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            loginPopup.style.display = 'none';
-            body.classList.remove('popup-active');
-            alert('You are now logged in as a driver in the demo environment.');
-            showOrderPopup();
-        });
-    
-        function showOrderPopup() {
-            // Simulate order data
-            const orderData = {
-                id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
-                customer: 'John Doe',
-                items: ['Burger', 'Fries', 'Soda'],
-                pickup: 'Campus Food Court',
-                delivery: 'Taylor Hall, Room 203'
-            };
-    
-            document.getElementById('order-id').textContent = orderData.id;
-            document.getElementById('customer-name').textContent = orderData.customer;
-            const orderItemsList = document.getElementById('order-items');
-            orderItemsList.innerHTML = '';
-            orderData.items.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                orderItemsList.appendChild(li);
+
+            closePopupBtn.addEventListener('click', function() {
+                popup.style.display = 'none';
+                body.classList.remove('popup-active');
             });
-            document.getElementById('pickup-location').textContent = orderData.pickup;
-            document.getElementById('delivery-location').textContent = orderData.delivery;
-    
-            orderPopup.style.display = 'flex';
-            body.classList.add('popup-active');
-        }
-    
-        acceptOrderBtn.addEventListener('click', function() {
-            orderPopup.style.display = 'none';
-            body.classList.remove('popup-active');
-            alert('Order accepted! Head to the pickup location.');
-        });
-    
-        declineOrderBtn.addEventListener('click', function() {
-            orderPopup.style.display = 'none';
-            body.classList.remove('popup-active');
-            alert('Order declined. Waiting for new orders...');
-        });
-    
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+
+            getStartedLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                alert('You are now logged in as John Bovell in the demo environment.');
+                window.location.href = 'order.html';
             });
         });
-    
-        // Form submission
-        const contactForm = document.getElementById('contact-form');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message. We will get back to you soon!');
-            contactForm.reset();
-        });
-    });</script>
+    </script>
 </body>
 </html>
