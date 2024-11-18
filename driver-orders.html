@@ -34,47 +34,39 @@
         .dashboard {
             display: flex;
             height: 100vh;
-            flex-direction: column;
         }
 
         .sidebar {
+            width: 250px;
             background-color: var(--gray-800);
             color: var(--white);
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .sidebar h1 {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
         }
 
         .sidebar nav ul {
             list-style-type: none;
-            display: flex;
-            justify-content: space-between;
         }
 
         .sidebar nav ul li {
-            flex: 1;
-            margin-right: 0.5rem;
-        }
-
-        .sidebar nav ul li:last-child {
-            margin-right: 0;
+            margin-bottom: 1rem;
         }
 
         .sidebar nav ul li button {
             width: 100%;
-            text-align: center;
-            padding: 0.5rem;
+            text-align: left;
+            padding: 0.5rem 1rem;
             background: none;
             border: none;
             color: var(--white);
             cursor: pointer;
             border-radius: 0.25rem;
             transition: background-color 0.3s;
-            font-size: 0.875rem;
         }
 
         .sidebar nav ul li button:hover,
@@ -85,16 +77,12 @@
         .main-content {
             flex: 1;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         header {
             background-color: var(--white);
             padding: 1rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         header h2 {
@@ -103,57 +91,55 @@
         }
 
         main {
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .earnings-chart {
             background-color: var(--white);
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 0.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .earnings-chart h3 {
-            font-size: 1rem;
+            font-size: 1.125rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .orders-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
         .order-card {
             background-color: var(--white);
             border-radius: 0.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .order-card h3 {
-            font-size: 1rem;
+            font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         .order-card p {
             margin-bottom: 0.5rem;
-            font-size: 0.875rem;
         }
 
         .order-card ul {
             list-style-type: disc;
-            padding-left: 1.25rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .map-container {
-            height: 150px;
-            margin-bottom: 0.5rem;
+            height: 200px;
+            margin-bottom: 1rem;
         }
 
         .btn {
@@ -167,7 +153,7 @@
             border: none;
             cursor: pointer;
             width: 100%;
-            font-size: 0.875rem;
+            font-size: 1rem;
         }
 
         .btn:hover {
@@ -182,79 +168,23 @@
             background-color: #059669;
         }
 
-        @media (min-width: 640px) {
+        @media (max-width: 768px) {
             .dashboard {
-                flex-direction: row;
-            }
-
-            .sidebar {
-                width: 250px;
-                padding: 1.5rem;
-            }
-
-            .sidebar h1 {
-                font-size: 1.5rem;
-                margin-bottom: 2rem;
-            }
-
-            .sidebar nav ul {
                 flex-direction: column;
             }
 
-            .sidebar nav ul li {
-                margin-right: 0;
-                margin-bottom: 1rem;
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
             }
 
-            .sidebar nav ul li button {
-                text-align: left;
-                padding: 0.5rem 1rem;
-                font-size: 1rem;
+            .sidebar h1 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
             }
 
             .main-content {
-                height: 100vh;
-            }
-
-            main {
-                padding: 1.5rem;
-            }
-
-            .earnings-chart {
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .earnings-chart h3 {
-                font-size: 1.125rem;
-                margin-bottom: 1rem;
-            }
-
-            .orders-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 1.5rem;
-            }
-
-            .order-card {
-                padding: 1.5rem;
-            }
-
-            .order-card h3 {
-                font-size: 1.125rem;
-            }
-
-            .order-card p,
-            .order-card ul {
-                font-size: 1rem;
-            }
-
-            .map-container {
-                height: 200px;
-                margin-bottom: 1rem;
-            }
-
-            .btn {
-                font-size: 1rem;
+                height: calc(100vh - 200px);
             }
         }
     </style>
@@ -265,9 +195,9 @@
             <h1>ErrandEase Driver</h1>
             <nav>
                 <ul>
-                    <li><button id="available-tab" class="active">Available</button></li>
-                    <li><button id="active-tab">Active</button></li>
-                    <li><button id="completed-tab">Completed</button></li>
+                    <li><button id="available-tab" class="active">Available Orders</button></li>
+                    <li><button id="active-tab">Active Orders</button></li>
+                    <li><button id="completed-tab">Completed Orders</button></li>
                 </ul>
             </nav>
         </div>
@@ -414,8 +344,6 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true
