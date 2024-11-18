@@ -40,6 +40,10 @@
             background-color: var(--primary-color);
             color: var(--white);
             padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
 
         nav {
@@ -88,7 +92,7 @@
         }
 
         main {
-            padding: 2rem 0;
+            padding: 6rem 0 2rem;
         }
 
         section {
@@ -299,10 +303,6 @@
             background-color: var(--primary-color);
         }
 
-        #login-form, #order-details {
-            text-align: left;
-        }
-
         #login-form label, #login-form input {
             display: block;
             width: 100%;
@@ -313,19 +313,6 @@
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 5px;
-        }
-
-        #order-details ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        #order-details p {
-            margin-bottom: 0.5rem;
-        }
-
-        #accept-order, #decline-order {
-            margin-top: 1rem;
         }
 
         @media (max-width: 768px) {
@@ -456,22 +443,6 @@
                 </form>
             </div>
         </div>
-
-        <div id="order-popup" class="popup" role="dialog" aria-labelledby="order-popup-title">
-            <div class="popup-content">
-                <h2 id="order-popup-title">New Order</h2>
-                <div id="order-details">
-                    <p><strong>Order ID:</strong> <span id="order-id"></span></p>
-                    <p><strong>Customer:</strong> <span id="customer-name"></span></p>
-                    <p><strong>Items:</strong></p>
-                    <ul id="order-items"></ul>
-                    <p><strong>Pickup Location:</strong> <span id="pickup-location"></span></p>
-                    <p><strong>Delivery Location:</strong> <span id="delivery-location"></span></p>
-                </div>
-                <button id="accept-order" class="btn-primary">Accept Order</button>
-                <button id="decline-order" class="btn-secondary">Decline Order</button>
-            </div>
-        </div>
         
         <footer>
             <div class="footer-content">
@@ -506,16 +477,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             const demoPopup = document.getElementById('demo-popup');
             const loginPopup = document.getElementById('login-popup');
-            const orderPopup = document.getElementById('order-popup');
             const closePopupBtn = document.getElementById('close-popup');
             const getStartedLink = document.getElementById('get-started-link');
             const loginBtn = document.getElementById('login-btn');
             const loginForm = document.getElementById('login-form');
-            const acceptOrderBtn = document.getElementById('accept-order');
-            const declineOrderBtn = document.getElementById('decline-order');
             const body = document.body;
-
-            let isLoggedIn = false;
 
             // Show the demo pop-up immediately
             demoPopup.style.display = 'flex';
@@ -528,73 +494,24 @@
 
             getStartedLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (!isLoggedIn) {
-                    showLoginPopup();
-                } else {
-                    showOrderPopup();
-                }
+                showLoginPopup();
             });
 
             loginBtn.addEventListener('click', function() {
-                if (!isLoggedIn) {
-                    showLoginPopup();
-                } else {
-                    alert('You are already logged in as a driver.');
-                    showOrderPopup();
-                }
+                showLoginPopup();
             });
 
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 loginPopup.style.display = 'none';
                 body.classList.remove('popup-active');
-                isLoggedIn = true;
-                alert('You are now logged in as a driver in the demo environment.');
-                showOrderPopup();
+                window.location.href = 'driver-orders.html';
             });
 
             function showLoginPopup() {
                 loginPopup.style.display = 'flex';
                 body.classList.add('popup-active');
             }
-
-            function showOrderPopup() {
-                // Simulate order data
-                const orderData = {
-                    id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
-                    customer: 'John Doe',
-                    items: ['Burger', 'Fries', 'Soda'],
-                    pickup: 'Campus Food Court',
-                    delivery: 'Taylor Hall, Room 203'
-                };
-
-                document.getElementById('order-id').textContent = orderData.id;
-                document.getElementById('customer-name').textContent = orderData.customer;
-                const orderItemsList = document.getElementById('order-items');
-                orderItemsList.innerHTML = '';
-                orderData.items.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    orderItemsList.appendChild(li);
-                });
-                document.getElementById('pickup-location').textContent = orderData.pickup;
-                document.getElementById('delivery-location').textContent = orderData.delivery;
-
-                orderPopup.style.display = 'flex';
-                body.classList.add('popup-active');
-            }
-
-            acceptOrderBtn.addEventListener('click', function() {
-                orderPopup.style.display = 'none';
-                body.classList.remove('popup-active');
-                alert('Order accepted! Head to the pickup location.');
-            });
-
-            declineOrderBtn.addEventListener('click', function() {
-                orderPopup.style.display = 'none';
-                body.classList.remove('popup-active');
-                alert('Order declined. Waiting for new orders...');
-            });
 
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {

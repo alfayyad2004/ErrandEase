@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErrandEase Driver - Order Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #232f3e;
+            --secondary-color: #37475a;
+            --accent-color: #f3a847;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        main {
+            padding: 6rem 0 2rem;
+        }
+
+        .orders-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .order-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .order-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .order-details {
+            margin-bottom: 1rem;
+        }
+
+        .order-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #e09736;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <nav>
+                <div class="logo"><i class="fas fa-shipping-fast" aria-hidden="true"></i> ErrandEase Driver</div>
+                <ul>
+                    <li><a href="#available-orders">Available Orders</a></li>
+                    <li><a href="#active-orders">Active Orders</a></li>
+                    <li><a href="#completed-orders">Completed Orders</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="available-orders">
+                <h2>Available Orders</h2>
+                <div class="orders-container" id="available-orders-container">
+                    <!-- Available orders will be dynamically added here -->
+                </div>
+            </section>
+
+            <section id="active-orders">
+                <h2>Active Orders</h2>
+                <div class="orders-container" id="active-orders-container">
+                    <!-- Active orders will be dynamically added here -->
+                </div>
+            </section>
+
+            <section id="completed-orders">
+                <h2>Completed Orders</h2>
+                <div class="orders-container" id="completed-orders-container">
+                    <!-- Completed orders will be dynamically added here -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2023 ErrandEase Driver. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const availableOrdersContainer = document.getElementById('available-orders-container');
+            const activeOrdersContainer = document.getElementById('active-orders-container');
+            const completedOrdersContainer = document.getElementById('completed-orders-container');
+
+            // Sample order data
+            const orders = [
+                {
+                    id: 'ORD-1001',
+                    customer: 'John Doe',
+                    items: ['Burger', 'Fries', 'Soda'],
+                    pickup: 'Campus Food Court',
+                    delivery: 'Taylor Hall, Room 203',
+                    status: 'available',
+                    lat: 18.006010,
+                    lng: -76.749241
+                },
+                {
+                    id: 'ORD-1002',
+                    customer: 'Jane Smith',
+                    items: ['Pizza', 'Wings', 'Garlic Bread'],
+                    pickup: 'Pizza Palace',
+                    delivery: 'Student Union Building',
+                    status: 'active',
+                    lat: 18.005416,
+                    lng: -76.747395
+                },
+                {
+                    id: 'ORD-1003',
+                    customer: 'Bob Johnson',
+                    items: ['Textbook', 'Notebook', 'Pens'],
+                    pickup: 'Campus Bookstore',
+                    delivery: 'Library',
+                    status: 'completed',
+                    lat: 18.004821,
+                    lng: -76.745549
+                }
+            ];
+
+            function createOrderCard(order) {
+                const card = document.createElement('div');
+                card.className = 'order-card';
+                card.innerHTML = `
+                    <h3>${order.id}</h3>
+                    <div class="order-details">
+                        <p><strong>Customer:</strong> ${order.customer}</p>
+                        <p><strong>Items:</strong> ${order.items.join(', ')}</p>
+                        <p><strong>Pickup:</strong> ${order.pickup}</p>
+                        <p><strong>Delivery:</strong> ${order.delivery}</p>
+                    </div>
+                    <div class="map-container" id="map-${order.id}"></div>
+                    ${order.status === 'available' ? `
+                        <a href="#" class="btn btn-primary accept-order" data-id="${order.id}">Accept Order</a>
+                    ` : order.status === 'active' ? `
+                        <a href="#" class="btn btn-secondary complete-order" data-id="${order.id}">Complete Order</a>
+                    ` : ''}
+                `;
+                return card;
+            }
+
+            function initMap(order) {
+                const map = new google.maps.Map(document.getElementById(`map-${order.id}`), {
+                    center: { lat: order.lat, lng: order.lng },
+                    zoom: 15
+                });
+                new google.maps.Marker({
+                    position: { lat: order.lat, lng: order.lng },
+                    map: map,
+                    title: order.delivery
+                });
+            }
+
+            function renderOrders() {
+                availableOrdersContainer.innerHTML = '';
+                activeOrdersContainer.innerHTML = '';
+                completedOrdersContainer.innerHTML = '';
+
+                orders.forEach(order => {
+                    const card = createOrderCard(order);
+                    if (order.status === 'available') {
+                        availableOrdersContainer.appendChild(card);
+                    } else if (order.status === 'active') {
+                        activeOrdersContainer.appendChild(card);
+                    } else if (order.status === 'completed') {
+                        completedOrdersContainer.appendChild(card);
+                    }
+                    initMap(order);
+                });
+            }
+
+            renderOrders();
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('accept-order')) {
+                    e.preventDefault();
+                    const orderId = e.target.getAttribute('data-id');
+                    const order = orders.find(o => o.id === orderId);
+                    if (order) {
+                        order.status = 'active';
+                        renderOrders();
+                    }
+                } else if (e.target.classList.contains('complete-order')) {
+                    e.preventDefault();
+                    const orderId = e.target.getAttribute('data-id');
+                    const order = orders.find(o => o.id === orderId);
+                    if (order) {
+                        order.status = 'completed';
+                        renderOrders();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
