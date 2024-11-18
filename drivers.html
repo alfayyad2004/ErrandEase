@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #1a5f7a;
-            --secondary-color: #159895;
-            --accent-color: #57c5b6;
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #e74c3c;
             --text-color: #333;
-            --background-color: #f9f9f9;
+            --background-color: #ecf0f1;
             --white: #ffffff;
         }
 
@@ -83,9 +83,9 @@
             color: var(--accent-color);
         }
 
-        #login-btn {
+        #login-btn, #get-started-btn {
             background-color: var(--accent-color);
-            color: var(--primary-color);
+            color: var(--white);
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 5px;
@@ -94,9 +94,8 @@
             font-weight: bold;
         }
 
-        #login-btn:hover {
-            background-color: var(--secondary-color);
-            color: var(--white);
+        #login-btn:hover, #get-started-btn:hover {
+            background-color: #c0392b;
         }
 
         main {
@@ -131,20 +130,7 @@
         }
 
         #get-started-btn {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: bold;
-        }
 
-        #get-started-btn:hover {
-            background-color: var(--primary-color);
-            color: var(--white);
         }
 
         .steps, .benefits-grid {
