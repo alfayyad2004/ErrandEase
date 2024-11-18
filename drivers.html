@@ -44,6 +44,7 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -54,18 +55,15 @@ nav {
     flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--white);
-    text-decoration: none;
-}
-
 nav ul {
     display: flex;
     list-style-type: none;
-    flex-wrap: wrap; /* Support wrapping on mobile */
-    gap: 15px; /* Add spacing between list items */
+    flex-wrap: wrap; /* Enable wrapping on small screens */
+    gap: 15px; /* Spacing between items */
+}
+
+nav ul li {
+    margin: 0;
 }
 
 nav ul li a {
@@ -97,8 +95,34 @@ nav ul li a:hover {
 }
 
 main {
-    padding: 6rem 0 2rem;
+    padding: 6rem 0 2rem; /* Adjust for fixed navbar */
 }
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Stack navbar items vertically */
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px; /* Adjust gap for mobile nav */
+    }
+
+    nav ul li {
+        margin: 0;
+    }
+
+    #login-btn {
+        margin-top: 10px; /* Add spacing for button on mobile */
+    }
+
+    main {
+        padding: 8rem 0 2rem; /* Add more space for a taller mobile navbar */
+    }
+}
+
 
 section {
     margin-bottom: 4rem;
